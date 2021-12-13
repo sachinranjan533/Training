@@ -12,3 +12,5 @@
     <%= link_to "New Comment",new_comment_path(post_id: post.id) %>
 <% end %>
 <%= link_to "Add New Post" ,new_post_path %>
+
+<%= will_paginate @posts %>
