@@ -10,6 +10,9 @@ gem 'cancancan'
 # Adding will_paginate gems.
 gem 'will_paginate', '~> 3.1.1'
 
+# Adding PaperClip gems.
+gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use sqlite3 as the database for Active Record

@@ -15,7 +15,7 @@ class PostsController < ApplicationController
         @post=Post.new
     end
     def create
-        @post=Post.new(params.require(:post).permit(:title,:body))
+        @post=Post.new(params.require(:post).permit(:title,:body,:avatar))
         @post.user_id=current_user[:id]
         if @post.save
             flash[:notice]="New post created successfully"
@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     def update
         @post=Post.find(params[:id])
         @post.user_id=current_user[:id]
-        if @post.update(params.require(:post).permit(:title,:body))
+        if @post.update(params.require(:post).permit(:title,:body,:avatar))
             flash[:notice]="Post updated successfully"
             redirect_to post_path(@post)
         else

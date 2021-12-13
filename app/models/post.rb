@@ -3,4 +3,9 @@ class Post < ApplicationRecord
     belongs_to :user
     validates :title,presence: true,length: {minimum: 5,maximum: 10}
     validates :body,presence: true,length: {minimum: 10,maximum: 100}
+    has_attached_file :avatar
+    #do_not_validate_attachment_content_type :avatar
+    validates_attachment :avatar, content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
+    validates_with AttachmentSizeValidator, attributes: :avatar, in: 100..200.kilobytes
+    validates_with AttachmentPresenceValidator,attributes: :avatar
 end
