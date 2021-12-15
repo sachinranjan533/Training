@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root "welcome#index"
   resources :posts
   resources :comments
+  get "recovery",to: "posts#recovery"
 end

@@ -1,13 +1,16 @@
 <h1><%= "Tilte: " %><%= @post.title %></h1>
 <h3><%= "Body Of Post: " %><%= @post.body %></h3>
-<%= link_to "Edit Post",edit_post_path(@post) %>
-<%= link_to "Delete Post",post_path(@post),method: :delete,data: {confirm: "Are you sure to Delete Post?"} %>
+<%= image_tag @post.avatar.url%>
 <% @post.comments.each do |comment| %>
-    <%= "Tilte: " %><%= comment.title %>
-    <%= "Body Of Comment: " %><%= comment.body %>
+    <h2><%= "Tilte: " %><%= comment.title %></h2>
+    <h4><%= "Body Of Comment: " %><%= comment.body %></h4>
     <%= link_to "Edit Comment",edit_comment_path(comment) %>
     <%= link_to "Delete Comment",comment_path(comment),method: :delete,data: {confirm: "Are you sure to Delete Comment?"} %>
 <% end %>
-<%= image_tag @post.avatar.url %>
+</br></br>
 <%= link_to "New Comment",  new_comment_path(post_id: @post.id) %>
+</br></br>
+<%= link_to "Edit Post",edit_post_path(@post) %>
+<%= link_to "Delete Post",post_path(@post),method: :delete,data: {confirm: "Are you sure to Delete Post?"} %>
+</br></br>
 <%= link_to "Add New Post" ,new_post_path %>

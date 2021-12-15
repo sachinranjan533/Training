@@ -9,7 +9,8 @@ class PostsController < ApplicationController
         @post=Post.find(params[:id])
     end
     def index
-        @posts=Post.all.where(user_id: 3).paginate(page: params[:page],per_page: 2).order('created_at DESC')
+        @posts=Post.all.paginate(page: params[:page],per_page: 2).order('created_at ASC')
+        @posts_deleted=Post.only_deleted.paginate(page: params[:page],per_page: 2)
     end
     def new
         @post=Post.new
@@ -27,7 +28,6 @@ class PostsController < ApplicationController
     
     def edit
         @post=Post.find(params[:id])
-        #Post.accessible_by(current_ability, :ud)
         authorize! :ud, @post 
         # ----------------------------
         # Post krna pr sbko edit kr skte h. #doubt
@@ -45,10 +45,19 @@ class PostsController < ApplicationController
     end
 
     def destroy
-        @post=Post.find(params[:id])
+        @post=Post.with_deleted.find(params[:id])
         authorize! :ud, @post
-        @post.destroy
+        if params[:value]=="temporary"
+            @post.destroy
+        elsif params[:value]=="permanent"
+            @post.destroy_fully!
+        end
         flash[:notice]="Post Delete successfully"
+        redirect_to posts_path
+    end
+
+    def recovery
+        Post.only_deleted.where(id: params[:post_id]).first.recover
         redirect_to posts_path
     end
 

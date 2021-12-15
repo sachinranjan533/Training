@@ -1,4 +1,7 @@
 class Post < ApplicationRecord
+    acts_as_paranoid #recover_dependent_associations: false
+    validates_as_paranoid
+    validates_uniqueness_of_without_deleted [:title,:body]
     has_many :comments,dependent: :destroy
     belongs_to :user
     validates :title,presence: true,length: {minimum: 5,maximum: 10}

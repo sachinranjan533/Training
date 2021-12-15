@@ -21,9 +21,13 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment=Comment.find(params[:id])
-    authorize! :ud,@comment
-    @comment.destroy
+    @comment=Comment.with_deleted.find(params[:id])
+    authorize! :ud, @comment
+    if params[:value]=="temporary"
+        @comment.destroy
+    elsif params[:value]=="permanent"
+        @comment.destroy_fully!
+    end
     flash[:notice]="Comment Deleted Successfully"
     redirect_to posts_path
   end
@@ -37,7 +41,7 @@ class CommentsController < ApplicationController
   def create
     @post=Post.find(params[:comment][:post_id])
     comment = Comment.new(params.require(:comment).permit(:title,:body,:post_id,:user_id))
-    comment.user_id=@post.user_id
+    comment.user_id=current_user.id
 
     if comment.save
       @post.comments << comment
