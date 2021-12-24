@@ -1,0 +1,13 @@
+<td colspan="3" class="text-center"><%= obj.id %></td>
+<td colspan="3" class="text-center"><%= obj.title %></td>
+<td colspan="3" class="text-center"><%= obj.body %></td>
+<td colspan="3" class="text-center"><%= obj.created_at.strftime("%d/%m/%Y") %></td>
+<td colspan="3" class="text-center"><%= obj.updated_at.strftime("%d/%m/%Y") %></td>
+<td colspan="3" class="text-center">
+<%= link_to edit_comment_path(obj), :remote => true do %>
+    <i class="fa fa-edit" aria-hidden="true"></i>
+<% end %>            
+<%= link_to comment_path(obj,value: "temporary"), data: {confirm: "Are you sure to Delete Comment?"}  do %>
+    <i class="fa fa-trash" aria-hidden="true"></i>
+<% end %>
+</td>

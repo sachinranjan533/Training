@@ -1,0 +1,6 @@
+<% if @post.errors.any? %>
+    $("#errors_div").html("<%= j (render 'error',obj: @post) %>")
+<% else %>
+    $("#postid<%= @post.id %>").replaceWith("<%= j (render 'check',obj: @post) %>");
+    $(".close_modal").click();
+<% end %>

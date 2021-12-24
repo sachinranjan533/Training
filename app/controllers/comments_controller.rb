@@ -4,19 +4,27 @@ class CommentsController < ApplicationController
     @current_ability ||= CommentAbility.new(current_user)
   end
 
+  def index
+    @post=Post.find_by(id: params[:post_id])
+    @comments=@post.comments
+  end
+
   def edit
     @comment=Comment.find(params[:id])
     authorize! :ud,@comment
+    respond_to do |format|
+      format.js
+    end 
   end
   
   def update
     @comment=Comment.find(params[:id])
-    if @comment.update(params.require(:comment).permit(:title,:body))
-      flash[:notice]="Comment Update Successfully"
-      redirect_to posts_path
-    else
-      flash[:notice]="Comment not able to Update"
-      redirect_to 'edit'
+    respond_to do |format|
+      if @comment.update(params.require(:comment).permit(:title,:body))
+          format.js
+      else
+          format.js
+      end
     end
   end
 
@@ -36,6 +44,9 @@ class CommentsController < ApplicationController
     @comment=Comment.new
     # accesssing the post id.
     @post=Post.find(params[:post_id])
+    respond_to do |format|
+      format.js
+    end 
   end
 
   def create

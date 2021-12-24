@@ -7,6 +7,10 @@ gem 'devise'
 
 gem 'cancancan'
 
+gem "font-awesome-rails"
+
+gem 'will_paginate', '~> 3.1.1'
+
 # Adding will_paginate gems.
 gem 'will_paginate', '~> 3.1.1'
 

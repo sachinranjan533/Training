@@ -1,16 +1,21 @@
-<h2>Forgot your password?</h2>
+<div class="container py-5 h-100">
+    <%= render "users/shared/error_messages", resource: resource %>
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <h2 class="text-primary"><%= "Forgot your password?" %></h2> 
+        <%= render "users/shared/error_messages", resource: resource %> 
+        <div class="form-outline mb-4">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+          
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        <div class="form-outline mb-4">
+          <%= f.submit "Reset Link" ,class: "mt-4 btn btn-primary btn-lg btn-block" %>
+        </div>
+        <% end %>
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
   </div>
-
-  <div class="actions">
-    <%= f.submit "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>

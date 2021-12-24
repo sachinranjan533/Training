@@ -1,0 +1,16 @@
+<div class="container">
+  <% @users.each do |user| %>
+    <div class="card text-center mt-4 mb-4">
+    <div class="card-header">
+    <%= "User Id " %><%= user.id %>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= user.email %></p>
+    </div>
+    <div class="card-footer text-muted">
+      <%= "Created On "%><%= user.created_at.strftime("%d/%m/%Y") %>
+      <%= " And Updated On "%><%= user.updated_at.strftime("%d/%m/%Y") %>
+    </div>
+    </div>
+  <% end %>
+</div>

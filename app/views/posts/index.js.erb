@@ -1,0 +1,2 @@
+$("#post-wrap").html("<%= escape_javascript render(@check) %>")
+$("#pagination-wrap").html("<%= escape_javascript (paginate(posts, remote:true")) %>");

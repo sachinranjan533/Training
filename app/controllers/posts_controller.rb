@@ -9,26 +9,33 @@ class PostsController < ApplicationController
         @post=Post.find(params[:id])
     end
     def index
-        @posts=Post.all.paginate(page: params[:page],per_page: 2).order('created_at ASC')
-        @posts_deleted=Post.only_deleted.paginate(page: params[:page],per_page: 2)
+        @posts=Post.all.order('created_at ASC')
+        @posts_deleted=Post.only_deleted
     end
     def new
         @post=Post.new
+        respond_to do |format|
+            format.js
+        end
     end
     def create
         @post=Post.new(params.require(:post).permit(:title,:body,:avatar))
         @post.user_id=current_user[:id]
-        if @post.save
-            flash[:notice]="New post created successfully"
-            redirect_to post_path(@post)
-        else
-            render 'new'   
-        end         
+        respond_to do |format|
+            if @post.save
+                format.js
+            else
+                format.js
+            end
+        end      
     end
     
     def edit
         @post=Post.find(params[:id])
-        authorize! :ud, @post 
+        authorize! :ud, @post
+        respond_to do |format|
+            format.js
+        end 
         # ----------------------------
         # Post krna pr sbko edit kr skte h. #doubt
     end
@@ -36,11 +43,12 @@ class PostsController < ApplicationController
     def update
         @post=Post.find(params[:id])
         @post.user_id=current_user[:id]
-        if @post.update(params.require(:post).permit(:title,:body,:avatar))
-            flash[:notice]="Post updated successfully"
-            redirect_to post_path(@post)
-        else
-            render 'edit'   
+        respond_to do |format|
+            if @post.update(params.require(:post).permit(:title,:body,:avatar))
+                format.js
+            else
+                format.js
+            end
         end
     end
 
@@ -62,3 +70,7 @@ class PostsController < ApplicationController
     end
 
 end
+
+
+
+#else wala part implement krna h

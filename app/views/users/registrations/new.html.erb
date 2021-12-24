@@ -1,39 +1,48 @@
-<h2>Sign up</h2>
+<div class="container py-5 h-100">
+    <%= render "users/shared/error_messages", resource: resource %>
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <h2 class="text-primary"><%= "Sign Up" %></h2>  
+        <div class="form-outline mb-4">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
+          <div class="form-outline mb-4">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "new-password" %>
+          </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+          <div class="form-outline mb-4">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+          </div>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <div class="form-outline mb-4">
+            <%= f.label :location %><br />
+            <%= f.text_field :location %>
+          <div>
+    
+          <div class="form-outline">
+            <%= f.label :salary %><br />
+            <%= f.text_field :salary %>
+          <div> 
+          
+          <div class="form-outline mb-4">
+            <%= f.label :Admin%>
+            <%= f.radio_button :admin, true%>  Yes
+            <%= f.radio_button :admin, false%>  No<br />
+          </div>
+
+          <div class="form-outline mb-4">
+            <%= f.submit "Sign Up",class: "mt-4 btn btn-primary btn-lg btn-block" %>
+          </div>
+
+        <% end %>
+        <%= render "users/shared/links" %>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  <div>
-
-  <div class="field">
-    <%= f.label :salary %><br />
-    <%= f.text_field :salary %>
-  <div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
